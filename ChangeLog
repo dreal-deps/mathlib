@@ -1,0 +1,16 @@
+2006-03-22  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* configure.ac: adoption of the Apache versioning scheme. Removal of "LT_" variables
+
+2006-03-21  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* configure.ac: removed support for Borland C++ Builder. Added support for Visual C++ 2005
+
+2006-02-17  Frederic Goualard  <Frederic.Goualard@lina.univ-nantes.fr>
+
+	* src/LINUX_DPChange.c: added portability to cygwin (names used in asm prefixed by "_")
+
+Abraham Ziv 		Math  				ziv@il.ibm.com 
+Moshe Olshansky 	Math + implementation   	olshansk@il.ibm.com 
+Ealan Henis  		Design, portability  		ealan@il.ibm.com 
+Anna Reitman 		Implementation, makefiles  	reitman@il.ibm.com

@@ -1,0 +1,212 @@
+IBM Accurate Portable Mathlib README file
+=========================================
+Date:        Jan 10, 2001
+
+Abstract
+
+ This set of routines compute standard common transcendental functions.
+ The computed results are the exact theoretical values correctly rounded
+ (nearest or even) to the closest number representable by the IEEE 754
+ double format. The computations are bit-by-bit compatible upon porting
+ among the supported platforms. Currently supported platforms/compilers
+ are: x86/Linux/gcc, x86/NT/[gcc | cl], Sparc/Solaris/gcc, 
+ PowerPC/AIX[32bit | 64bit]/[gcc | xlc].
+
+
+Change History:
+---------------------
+Date:
+  None
+
+
+End of change history
+---------------------
+
+Contents
+
+0) Quick installation/Usage
+A) General
+B) Installation
+C) Usage
+D) Computational considerations
+E) Contributors
+-----------------------------------------
+
+0) Quick installation/Usage
+   To quickly install test and use the mathlib perform the following.
+   0.1) Extract the mathlib package from the tar file. CD to MathLib.
+   0.2) To install and test on
+        Linux, AIX or Solaris: 
+         > configure --local
+         > make
+         > make install
+         > make test
+         for help: > configure --help
+         to remove links: > make uninstall
+
+        NT:
+         > Install --test
+         for NT help: > Install --help
+   0.3) Call/use any of the mathlib function in your program.
+        Prior to first usage call 
+           short old_status = Init_Lib(); // save original FP mode settings
+        After last usage call
+           Exit_Lib(old_status); // restore original FP mode settings
+
+        For Linux, AIX and Solaris link your program with -lultim to use
+           the libultim.a library.
+        For NT link your program with ultimate.lib library file.
+
+   0.4) Currently the portable accurate library include the following routines:
+        uatan, uatan2, uasin, uacos, uexp, ulog, upow, usin, ucos, utan,
+        usqrt, uremainder. Their usage is the standard usage under the man
+        pages for the corresponding standard functions (e.g., sin for usin,
+        cos for ucos etc.).
+
+
+A) General
+==========
+The IBM accurate portable MathLib library (IBM AMathLib)
+consists of routines that compute some of
+the standard common transcendental functions.
+The computed results are the exact theoretical values correctly rounded
+(nearest or even) to the closest number representable by the IEEE 754
+double format. The computations are bit-by-bit compatible upon porting
+among the supported platforms. Currently supported platforms/compilers
+are: x86/Linux/gcc, x86/NT/[gcc | cl], Sparc/Solaris/gcc, 
+PowerPC/AIX[32bit | 64bit]/[gcc | xlc]. Currently, the available routines
+are:
+uatan, uatan2, uasin, uacos, uexp, uexp2, ulog, ulog2, upow, usin, ucos, utan, ucot, 
+usqrt, uremainder, which may replace the standard functions
+atan(), atan2, asin(), acos().
+Additional routines will be added later.
+
+Each of the MathLib routines represent 
+the corresponding mathematical transcendental function. Each routine 
+receives input(s) as real number(s) that are
+represented by the IEEE 754 double precision format standard.
+The details of this format can be found for example
+at URL "http://noc.ucsc.edu/cie/RFC/1832/10.htm" or at
+"http://www.sns.ias.edu/Main/computing/compilers_html/
+common-tools/numerical_comp_guide/ncg_math.doc.html#685".
+This format uses a total of 64 bits, out of which 52 bits represent
+the mantissa. Calling these routines from within a program is similar
+to the standard corresponding functions (see the relevant man pages).
+Unlike the standard library routines, the accurate portable routines'
+return values are THE EXACT THEORETICAL return values CORRECTLY ROUNDED
+to the nearest value representable by the IEEE 754 double format.
+If the theoretical result is equally distant from two neighboring IEEE
+754 values, the functions return the "even" of the two.
+
+
+B) Installation
+==============
+
+  To install the IBM accurate mathlib, cd to the directory
+to which you have extracted and uncompressed the IBM_AMathLib.tar file.
+For the Linux, AIX and Solaris platforms, at the command prompt type:
+ ./configure --help to see the configuration options.
+On NT type instead: Install --help.
+Remember that the compiler that you wish to compile the library with
+(gcc, cl or xlc) must be included in the path to be activated by the
+installation scripts/batch files.
+
+  For the Linux, AIX and Solaris platforms, at the command prompt type:
+  > ./configure <options>
+For example, to place the math library in the current directory and
+compile it with gcc type:
+  > ./configure --local 
+This command will generate the appropriate Makefile to build the library.
+To activate this Makefile and create the library, type:
+  > make
+Finally, to copy the library to the selected location and to create the
+symbolic links to it from standard places, type:
+  > make install
+To undo the installation type:
+  > make uninstall
+To test it with the built-in testing program type:
+  > make test
+
+  For the x86/NT platform, type:
+  > Install <options>
+For example, to place the math library as a DLL in the current directory
+and compile it with CL (default options) type:
+  > install
+There is no uninstall option for NT, and the library is always built in
+the current directory.
+To build the library with GCC as a static library and test it with the
+built-in testing program type:
+  > install --gcc --static --test
+
+By default the library is built as a shared library. On Linux, AIX and Solaris
+the default location for the library is /usr/lib, while the Mathlib.h will
+be copied to /usr/include. If you are working on AIX/SUN/LINUX and you do not
+have root permissions it is recommended that you use the --local option.
+On NT the build is always local, namely in the current directory.
+
+
+C) Usage
+========
+  For the routines to work correctly, the processor floating point mode must
+be set to the IEEE 754 double precision mode. Otherwise, the returned values
+would not be correct (not even approximately). The compilers set the FP mode
+in the initialization routines that they add to programs. On PowerPC/AIX/xlc,
+PowerPC/AIX/gcc, SUN/Solaris/gcc, and x86/NT/cl, the processor is already
+set to run in the IEEE 754 double precision FP mode as default. On x86/NT/gcc
+and x86/Linux/gcc the FP processor default mode is the extended double
+precision. Therefore, on some platforms the FP mode must be changed prior to
+routine usage, while on others it need not. To ensure that the correct mode
+is set on any of the supported platforms, the mathlib routine Init_Lib() must
+be called prior to usage of the mathlib routines. Init_Lib() returns a short
+that contains the original cpu control word mode setting. This returned value
+should be saved by the user (for example in the local short variable
+org_setting). To restore the processor FP mode back to the saved original
+setting (Extended double mode for the x86/NT/gcc and x86/Linux/gcc cases)
+the mathlib routine Exit_Lib(org_setting) should be called, where the argument
+parameter contains the value that was returned by the above call to the
+Init_Lib() routine.
+
+  For PowerPC/AIX/xlc, SUN/Solaris/gcc, x86/NT/cl the default mode is already
+the IEEE 754 mode, so in principle there is no need to call Init_Lib() and
+Exit_Lib() altogether. However, to ensure portability of code across
+current and future supported platforms we provided empty routines 
+Init_Lib() and Exit_Lib(). It is recommended that the Init_Lib and Exit_Lib
+routines be called anyway even for platforms for which they do nothing,
+thus ensuring that if the user's code is ported to another supported platform
+in the future, it would still run correctly.
+
+The following code is a usage example that properly uses the usin routine:
+
+#include "MathLib.h"
+
+main()
+{
+ short Original_Mode;
+ double d1,d2;
+ ....
+ Original_Mode = Init_Lib(); /* set the cpu FP mode to IEEE 754 standard     */
+                             /* keep the original setting for future restore */
+ ....
+ d1 = 1.1415 / 8.0 ; /*  setting a value for d1      */
+ d2 = usin(d1);      /*  calculate the sin of d1     */
+ ....
+ d1 = d1 * 2.0 ;     /*  setting another value to d1 */
+ ....
+ d2 = ucos(d1);      /*  calculate the sin of d1     */
+ ....
+
+  /* unlimited additional usage of mathlib routines allowed here */
+ ....
+ Exit_Lib(Original_Mode);  /* restoring cpu FP mode to original setting   */
+
+}
+
+Additional information on the mathlib routines can be found in MathLib.h
+in the MathLib/src directory.
+
+D) Contributors
+
+   Abraham Ziv      Math                               ziv@il.ibm.com
+   Moshe Olshansky  Math + implementation         olshansk@il.ibm.com
+   Ealan Henis      Design, portability              ealan@il.ibm.com
+   Anna Reitman     makefiles and implementation   reitman@il.ibm.com

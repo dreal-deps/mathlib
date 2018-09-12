@@ -1,0 +1,164 @@
+atnat.c contains three functions:
+            
+    uatan:      : An ultimate atan() routine. Given an IEEE double machine
+                  number x, routine computes the correctly rounded (to nearest)
+                  value of atan(x).
+    atanMP      :Compute atan(x) by multiple precision arithmetic
+    signArctan  :Fix the sign of y and return
+
+atnat2.c contains four functions:
+
+  uatan2     :   An ultimate atan2 routine. Given two IEEE double machine numbers 
+                 y,x it computes the correctly rounded (to nearest) value of 
+                 atan2(y,x). 
+  atan2Mp    :   Perform a multi-Precision computation           
+  signArctan2:   Fix the sign and return after stage 1 or stage 2          
+  normalized :   Treat the Denormalized case
+
+
+branred.c contains  function:
+  branred :     Performs range  reduction of a double number x into Double
+                length number a+aa
+
+doasin.c contains  function:
+  doasin :   Compute arcsin(x,dx,v) of double-length number (x+dx)
+
+dosincos.c contains functions
+  dubsin : compute sin(x+dx) as Double-Length number by
+           Double-Length numbers arithmatic
+           (x+dx) between 0 and PI/4
+  dubcos : Routine receive Double-Length number (x+dx) 
+           between 0 and PI/4 and computes 
+           cos(x+dx) as Double-Length number by
+           arithmetic actions on Double-Length numbers
+  docos :  Routine receives Double-Length number (x+dx) and
+           computes cos(x+dx) as Double-Length number
+
+halfulp.c contains  function:
+ halfulp :Computes x^y where result does  not need rounding. 
+
+mpa.c contains functions:
+    mcr :  Compares the sizes of the mantissas of two multiple precision numbers
+    acr :  Compares the absolute values of two multiple precision numbers   
+     cr :  Compares the values of two multiple precision numbers  
+    cpy :  Copy a multiple precision number. Set *y=*x. x=y is permissible.    
+  cpymn :  Copy a multiple precision number x of precision m into a  multiple 
+               precision number y of precision n.                     
+   norm :  Normalized  (|x| >= 2**(-1022)))                
+ denorm :  Denormalized (|x| < 2**(-1022))
+ mp_dbl :  Convert a multiple precision number *x into a double precision number *y.
+ dbl_mp :  Converts a double precision number x into a multiple precision number *y.
+add_magnitudes : adds the magnitudes of *x & *y assuming that abs(*x) >= abs(*y) > 0 
+sub_magnitudes : subtracts the magnitudes of *x & *y assuming that abs(*x)>abs(*y)>0
+    add :  Add two multiple precision numbers.                        
+    sub :  Subtract two multiple precision numbers. *z is set to *x - *y      
+    mul :  Multiply two multiple precision numbers.    
+    inv :  Invert a multiple precision number                                     
+    dvd :  Divide one multiple precision number by another
+
+mpatan.c contains function:
+  mpatan : Multi-Precision Atan function subroutine, for precision p >= 4.
+
+mpatan2.c contains function:
+  mpatan2 :Multi-Precision Atan2(y,x) function subroutine for precision p >= 4.
+
+ mpexp.c contains function:
+  mpexp : Multi-Precision exponential function subroutine for precision p >= 4
+
+mplog.c contains function:
+  mplog : Multi-Precision logarithm function subroutine for precision p >= 4
+
+mpsqrt.c contains functions:
+  mpsqrt    : Multi-Precision square root function subroutine for precision p >= 4.
+  fastiroot : Compute a double precision approximation for 1/sqrt(x)
+
+mptan.c contains function:
+   mptan    :   Multi-Precision tan() function subroutine, for p=32. 
+
+sincos32.c contains functions:
+  ss32 :    Compute Multi-Precision sin() function for given p.
+  cc32 :    Compute Multi-Precision cos() function for given p.
+  c32 :     Compute both sin(x), cos(x) as Multi precision numbers
+  sin32 :   Compute more accurate result given double x and sin(x)
+  cos32 :   Compute more accurate result given double x and cos(x)
+  mpsin :   Compute double sin(x+dx) as Multi Precision number
+  mpcos :   Compute double cos(x+dx) as Multi Precision number
+  mpranred: Performs range reduction of a double number x
+  mpsin1 :  Multi-Precision sin() subroutine for p=32
+  mpcos1 :  Multi-Precision sin() subroutine for p=32
+
+slowcot.c contains functions:
+  slowcot : Computes correctly rounded value of cotangent 
+
+slowexp.c contains functios:
+  slowexp : Converting from double to Multi-precision and calculating exp
+
+slowexp2.c contains functios:
+  slowexp2 : Converting from double to Multi-precision and calculating 2**x 
+
+slowlog2.c contains functions:
+  slowlog2 : Computes correctly rounded value of base 2 logarithm of x 
+
+slowpow.c contains functions:
+  slowpow : Computes correctly rounded value of x^y
+
+uasncs.c contains functions:
+  uasin : Compute the arcsin routine for a given IEEE double number
+  uacos : Compute the arcos routine for a given IEEE double number
+
+ucot.c contains functions:
+  ucot : Compute the cotangent routine for a given IEEE double number
+
+uexp.c contains functions:
+  uexp : exp(x) routine for a given IEEE double argument  x
+  exp1 : Compute e^(x+xx) Double-Length number
+
+uexp2.c contains functions:
+  uexp2 : 2**x routine for a given IEEE double argument  x
+
+ulog.c contains function:
+   ulog : An ultimate log(x) routine, given an IEEE double x
+
+upow.c contains functions:
+   upow : An ultimate power routine x^y for IEEE double inputs x,y
+   power1 : Computing x^y using more accurate but more slow log routine 
+   lgg1 : Computing log(x) for IEEE double x
+   lgg2 : Slower but more accurate routine of log(x)
+   checkint : Checks if double argument is an integer.
+
+urem.c contains function:
+   uremainder : An ultimate remainder routine for IEEE inputs x,y
+
+uroot.c contains function:
+ usqrt :  An ultimate sqrt routine of IEEE double input x
+
+usncs.c contains functions:
+    usin : An ultimate sin(x) routine for IEEE double x
+    ucos : An ultimate cos routine for IEEE double x
+    slow    :Routine compute sin(x) for  2^-26 < |x|< 0.25 
+    slow1   :Routine compute sin(x) for   0.25<|x|< 0.855469
+    slow2   :Routine compute sin(x) for   0.855469  <|x|<2.426265  
+    sloww   :Routine compute sin(x+dx) (Double-Length number) where x
+             is arround 0
+    sloww1  :Routine computes sin(x+dx) (Double-Length number) where x
+             is in first or third quarter of the unit circle
+    sloww2  :Routine computes sin(x+dx) (Double-Length number) where x
+             is in second or fourth quarter of the unit circle
+    bsloww  : Routine computes sin(x+dx) or cos(x+dx)  where x is small enough 
+              to use Taylor series around zero and x+dx in first or third
+              quarter
+    bsloww1 :Routine computes sin(x+dx) or cos(x+dx) where x is in first or
+             third quarter of unit circle
+    bsloww2 :Routine computes sin(x+dx) or cos(x+dx) where x is in second
+             or fourth quarter of unit circle.
+    cslow2  :Routine computes cos(double x) for  2^-27 < |x|< 0.25
+    csloww  :Routine computes cos(x+dx) (Double-Length number) for small x
+    csloww1 :Routine computes sin(x+dx) for x in first or third quarter of 
+             unit circle. 
+    csloww2 :Routine computes sin(x+dx) for x in second or fourth quarter of
+             unit circle.
+
+utan.c contains functions:
+  utan   :  An ultimate tan(x) routine for IEEE double input x
+  tanMp  :  Multiple precision stage Convert x to multi precision number,
+            compute tan(x) and convert back to double  
