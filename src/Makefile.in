@@ -737,8 +737,8 @@ uninstall-am: uninstall-includeHEADERS uninstall-libLTLIBRARIES
 
 
 install-data-local:
-	$(mkinstalldirs) $(includedir)
-	$(INSTALL_DATA) $(srcdir)/MathLib.h $(includedir)
+	$(mkinstalldirs) "$(DESTDIR)$(includedir)"
+	$(INSTALL_DATA) $(srcdir)/MathLib.h "$(DESTDIR)$(includedir)"
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

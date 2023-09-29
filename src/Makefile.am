@@ -30,5 +30,5 @@ noinst_HEADERS = \
 	endian.h BCB_endian.h
 
 install-data-local:
-	$(mkinstalldirs) $(includedir)
-	$(INSTALL_DATA) $(srcdir)/MathLib.h $(includedir)
+	$(mkinstalldirs) "$(DESTDIR)/$(includedir)"
+	$(INSTALL_DATA) $(srcdir)/MathLib.h "$(DESTDIR)/$(includedir)"
